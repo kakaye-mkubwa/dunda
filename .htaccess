@@ -1,0 +1,45 @@
+# HTTPS Config
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+
+# #Rewrite url
+# Options -MultiViews
+# RewriteEngine on
+
+
+# RewriteCond %{THE_REQUEST} /([^.]+)\.php [NC]
+# RewriteRule ^ /%1 [NC,L,R]
+
+# RewriteCond %{REQUEST_FILENAME}.php -f
+# RewriteRule ^ %{REQUEST_URI}.php [NC,L]
+
+#Hide .htaccess file from public
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+
+#Disable directory indexing
+Options -Indexes
+
+
+# Deny access to files with extensions .ini, .psd, .log, .sh
+<FilesMatch "\.(ini|psd|log|sh)$">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# Deny access to filenames starting with dot(.)
+<FilesMatch "^\.">
+Order allow,deny
+Deny from all
+</FilesMatch>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php74” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php74 .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
